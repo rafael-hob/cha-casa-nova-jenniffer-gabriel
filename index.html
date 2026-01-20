@@ -140,9 +140,9 @@
           };
           const r = await fetch(WEB_APP_URL, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-          });
+            body: JSON.stringify(payload) // sem headers pra evitar preflight
+            });
+
           const j = await r.json();
           if(!j.ok) throw new Error(j.error || "Falha ao salvar");
 
@@ -179,3 +179,4 @@
 </script>
 </body>
 </html>
+
