@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chá de Casa Nova — Lista Online (Jenniffer & Gabriel)</title>
+  <style>
+    :root{
+      --bg:#0f1115; --card:#171a21; --text:#e9eef7; --muted:#aeb8c7;
+      --line:#2a2f3a; --chip:#232837; --accent:#7aa2ff;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+    main{max-width:980px;margin:0 auto;padding:18px}
+    h1{margin:10px 0 4px}
+    .muted{color:var(--muted);margin:0 0 16px;line-height:1.4}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:0 10px 24px rgba(0,0,0,.25)}
+    .title{font-weight:800;margin:0 0 8px;line-height:1.25}
+    .meta{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}
+    .chip{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--chip);border:1px solid var(--line);color:var(--muted);font-size:12px}
+    a{color:var(--accent);text-decoration:none;word-break:break-word}
+    a:hover{text-decoration:underline}
+    .row{display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap}
+    .btn{padding:8px 10px;border-radius:10px;border:1px solid rgba(122,162,255,.35);background:rgba(122,162,255,.14);color:var(--accent);cursor:pointer}
+    .btn:disabled{opacity:.6;cursor:not-allowed}
+    input[type="text"]{padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:#0d1016;color:var(--text);flex:1;min-width:220px}
+    .check{display:flex;align-items:center;gap:10px;color:var(--muted)}
+    .small{font-size:12px;color:var(--muted);margin-top:10px}
+    .links{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+    .hr{height:1px;background:var(--line);margin-top:10px}
+  </style>
+</head>
+<body>
+<main>
+  <h1>Chá de Casa Nova — Sugestões de Presente</h1>
+  <p class="muted">
+    Checklist online salvando no Google Sheets. Qualquer pessoa com o link pode marcar.
+    <br><span class="small">Dica: se quiser colocar seu nome, ele aparece no item ao salvar (opcional).</span>
+  </p>
+
+  <div class="row">
+    <input id="who" type="text" placeholder="Seu nome (opcional)" />
+    <button id="reload" class="btn">Recarregar</button>
+  </div>
+
+  <p id="status" class="small"></p>
+  <section id="grid" class="grid"></section>
+</main>
+
+<script>
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyIhUdiPCGg-j3Jg2qZeh6B4hJHmujyrohinPi4MGapfiwWaGD2rcqm1WUaY9xnq1b2/exec";
+
+  const grid = document.getElementById("grid");
+  const statusEl = document.getElementById("status");
+  const whoEl = document.getElementById("who");
+  document.getElementById("reload").onclick = load;
+
+  function setStatus(msg){ statusEl.textContent = msg || ""; }
+
+  async function load(){
+    setStatus("Carregando...");
+    grid.innerHTML = "";
+    try{
+      const r = await fetch(WEB_APP_URL, { cache: "no-store" });
+      const j = await r.json();
+      if(!j.ok) throw new Error(j.error || "Falha ao carregar");
+      render(j.items || []);
+      setStatus("");
+    }catch(e){
+      setStatus("Erro: " + e.message);
+    }
+  }
+
+  function formatQuem(item){
+    if(item.status !== "ok") return "";
+    const who = (item.quem || "").trim();
+    if(!who) return "Marcado ✅";
+    return "Marcado por: " + who + " ✅";
+  }
+
+  function makeLinkBlock(link, label){
+    if(!link) return "";
+    const text = label ? (label + " — " + link) : link;
+    return `<div><a href="${link}" target="_blank" rel="noopener">${text}</a></div>`;
+  }
+
+  function render(items){
+    items.forEach(item => {
+      const card = document.createElement("article");
+      card.className = "card";
+
+      const title = document.createElement("h2");
+      title.className = "title";
+      title.textContent = item.titulo || ("Item " + item.id);
+
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      if(item.cor){
+        const chip = document.createElement("span");
+        chip.className = "chip";
+        chip.textContent = "Preferência/Cor: " + item.cor;
+        meta.appendChild(chip);
+      }
+
+      const links = document.createElement("div");
+      links.className = "links";
+      links.innerHTML =
+        makeLinkBlock(item.link1, item.link2 ? "Opção 1" : "") +
+        makeLinkBlock(item.link2, "Opção 2");
+
+      const checkRow = document.createElement("div");
+      checkRow.className = "row";
+
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = (item.status === "ok");
+
+      const label = document.createElement("label");
+      label.className = "check";
+      label.appendChild(cb);
+      label.appendChild(document.createTextNode(" Marcar como “já peguei”"));
+
+      const saveBtn = document.createElement("button");
+      saveBtn.className = "btn";
+      saveBtn.textContent = "Salvar";
+
+      const whoLine = document.createElement("div");
+      whoLine.className = "small";
+      whoLine.textContent = formatQuem(item);
+
+      saveBtn.onclick = async () => {
+        saveBtn.disabled = true;
+        setStatus("Salvando item " + item.id + "...");
+        try{
+          const payload = {
+            id: String(item.id),
+            status: cb.checked ? "ok" : "",
+            quem: (whoEl.value || "").trim()
+          };
+          const r = await fetch(WEB_APP_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+          const j = await r.json();
+          if(!j.ok) throw new Error(j.error || "Falha ao salvar");
+
+          // Atualiza visual localmente
+          item.status = payload.status;
+          item.quem = payload.quem;
+          whoLine.textContent = formatQuem(item);
+
+          setStatus("Salvo ✅");
+          setTimeout(()=>setStatus(""), 900);
+        }catch(e){
+          setStatus("Erro ao salvar: " + e.message);
+        }finally{
+          saveBtn.disabled = false;
+        }
+      };
+
+      checkRow.appendChild(label);
+      checkRow.appendChild(saveBtn);
+
+      card.appendChild(title);
+      if(meta.childNodes.length) card.appendChild(meta);
+      if((item.link1 || item.link2)) card.appendChild(links);
+
+      card.appendChild(document.createElement("div")).className = "hr";
+      card.appendChild(checkRow);
+      card.appendChild(whoLine);
+
+      grid.appendChild(card);
+    });
+  }
+
+  load();
+</script>
+</body>
+</html>
