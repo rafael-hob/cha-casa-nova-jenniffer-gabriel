@@ -26,11 +26,9 @@
 
     body {
       margin: 0;
-      font-family: 'Montserrat', sans-serif; /* Fonte mais moderna pro corpo */
+      font-family: 'Montserrat', sans-serif;
       color: var(--text);
       line-height: 1.6;
-
-      /* SEU FUNDO AURORA */
       background-color: var(--bg);
       background-image: 
         radial-gradient(circle at 50% 0%, rgba(99, 179, 237, 0.15) 0%, transparent 50%),
@@ -39,12 +37,11 @@
     }
 
     main {
-      max-width: 800px; /* Reduzi um pouco pra ficar mais 'intimista' */
+      max-width: 800px;
       margin: 0 auto;
       padding: 24px 16px;
     }
 
-    /* --- ESTILO DO TÍTULO --- */
     header {
       text-align: center;
       margin-bottom: 32px;
@@ -57,18 +54,21 @@
       font-size: 0.9rem;
       color: var(--accent);
       font-weight: 600;
-      margin-bottom: 5px;
+      margin-bottom: 10px; /* Mais espaço antes do nome */
     }
 
     h1 {
-      margin: 0;
-      font-family: 'Great Vibes', cursive; /* Fonte manuscrita */
-      font-size: 3.5rem; /* Tamanho grande pros nomes */
+      margin: 0 0 20px 0; /* Margem embaixo para desgrudar da foto */
+      font-family: 'Great Vibes', cursive;
+      font-size: 4rem; /* Um pouco maior */
       font-weight: 400;
       background: linear-gradient(to right, #fff, #a5b4fc);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      line-height: 1.1;
+      
+      /* --- CORREÇÃO DO CORTE --- */
+      line-height: 1.4; /* Aumentei para caber os laços da fonte */
+      padding: 10px 0; /* Respiro extra em cima e embaixo */
       text-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
@@ -81,24 +81,24 @@
       margin-right: auto;
     }
 
-    /* --- CARROSSEL DE FOTOS --- */
+    /* --- CARROSSEL --- */
     .carousel-container {
       width: 100%;
-      max-width: 500px; /* Largura máxima da foto */
-      aspect-ratio: 4/3; /* Formato da foto (retangular) */
+      max-width: 500px;
+      aspect-ratio: 4/3;
       margin: 0 auto 30px;
       border-radius: 20px;
       overflow: hidden;
       box-shadow: 0 15px 30px rgba(0,0,0,0.4);
       border: 1px solid var(--border);
-      position: relative;
+      position: relative; /* Necessário para posicionar as setas */
     }
 
     .carousel-track {
       display: flex;
       width: 100%;
       height: 100%;
-      transition: transform 0.6s ease-in-out;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Animação mais suave */
     }
 
     .carousel-slide {
@@ -109,56 +109,58 @@
     .carousel-slide img {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* Faz a imagem preencher tudo sem esticar */
+      object-fit: cover;
     }
 
-    /* --- RESTO DO DESIGN (IGUAL AO ANTERIOR) --- */
-    .controls {
+    /* Setas de Navegação */
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.4);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
       display: flex;
-      gap: 12px;
+      align-items: center;
       justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-      background: rgba(30, 34, 41, 0.6); /* Mais translúcido */
-      backdrop-filter: blur(10px); /* Efeito de vidro */
-      padding: 16px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
+      font-size: 20px;
+      transition: background 0.3s;
+      user-select: none;
     }
+    
+    .nav-btn:hover { background: rgba(0, 0, 0, 0.7); }
+    .nav-prev { left: 10px; }
+    .nav-next { right: 10px; }
 
+    /* --- RESTO DO CSS --- */
+    .controls {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px;
+      background: rgba(30, 34, 41, 0.6); backdrop-filter: blur(10px);
+      padding: 16px; border-radius: 12px; border: 1px solid var(--border);
+    }
     input[type="text"] {
-      padding: 10px 14px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: rgba(0,0,0,0.3);
-      color: var(--text);
-      flex: 1;
-      min-width: 200px;
-      font-size: 1rem;
+      padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border);
+      background: rgba(0,0,0,0.3); color: var(--text); flex: 1; min-width: 200px; font-size: 1rem;
     }
     input[type="text"]:focus { outline: none; border-color: var(--accent); }
-
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-
     .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.2s, box-shadow 0.2s;
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px;
+      overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s;
     }
     .card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.3); border-color: var(--accent); }
     .card-content { padding: 20px; flex: 1; }
     .card-title { font-size: 1.25rem; font-weight: 700; margin: 0 0 12px; color: #fff; }
     .badge { display: inline-flex; padding: 4px 10px; border-radius: 6px; background: rgba(99, 179, 237, 0.15); color: var(--accent); font-size: 0.85rem; font-weight: 600; margin-bottom: 16px; border: 1px solid rgba(99, 179, 237, 0.2); }
-    
     .link-group { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
     .link-btn { display: block; padding: 10px 14px; background: var(--btn-bg); color: var(--text); text-decoration: none; border-radius: 8px; font-size: 0.9rem; text-align: center; border: 1px solid transparent; transition: 0.2s;}
     .link-btn:hover { background: #3e4c63; }
     .link-btn span { opacity: 0.8; font-size: 0.8em; margin-left: 6px; }
-
     .card-actions { background: rgba(0,0,0,0.2); padding: 16px 20px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px; }
     .check-label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 500; color: var(--muted); user-select: none; }
     .check-label input { width: 18px; height: 18px; accent-color: var(--success); }
@@ -177,21 +179,51 @@
     <h1>Jennifer & Gabriel</h1>
     
     <div class="carousel-container">
-      <div class="carousel-track" id="track">
+      
+      <button class="nav-btn nav-prev" onclick="prevSlide()">&#10094;</button>
+      
+<div class="carousel-track" id="track">
         
         <div class="carousel-slide">
-          <img src="https://images.unsplash.com/photo-1517260739337-6799d239ce83?q=80&w=800&auto=format&fit=crop" alt="Foto 1">
-        </div>
-        
-        <div class="carousel-slide">
-          <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=800&auto=format&fit=crop" alt="Foto 2">
+          <img src="https://i.ibb.co/Q3bm1j5w/Whats-App-Image-2026-02-04-at-11-30-30.jpg" alt="Momento 1">
         </div>
 
         <div class="carousel-slide">
-          <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?q=80&w=800&auto=format&fit=crop" alt="Foto 3">
+          <img src="https://i.ibb.co/LD5tmrHM/Whats-App-Image-2026-02-04-at-11-30-47.jpg" alt="Momento 2">
+        </div>
+
+        <div class="carousel-slide">
+          <img src="https://i.ibb.co/B5FpTFMb/Whats-App-Image-2026-02-04-at-11-33-55.jpg" alt="Momento 3">
+        </div>
+
+        <div class="carousel-slide">
+          <img src="https://i.ibb.co/XfYw8nJ7/Whats-App-Image-2026-02-04-at-11-35-25.jpg" alt="Momento 4">
+        </div>
+
+        <div class="carousel-slide">
+          <img src="https://i.ibb.co/6RRfMxV7/Whats-App-Image-2026-02-04-at-11-35-235.jpg" alt="Momento 5">
+        </div>
+
+        <div class="carousel-slide">
+          <img src="https://i.ibb.co/fz5hcfw4/Whats-App-Image-2026-02-04-at-11-54-343457.jpg" alt="Momento 6">
+        </div>
+
+        <div class="carousel-slide">
+          <img src="https://i.ibb.co/DDKfVMtp/Whats-App-Image-2026-02-04-at-11-59-45.jpg" alt="Momento 7">
+        </div>
+
+        <div class="carousel-slide">
+          <img src="https://i.ibb.co/BKcp3fPW/Whats-App-Image-2026-02-0344-at-11-35-25.jpg" alt="Momento 8">
+        </div>
+
+        <div class="carousel-slide">
+          <img src="https://i.ibb.co/sJXVwhFR/Whats-App-Image-2026-02-252504-at-11-56-51.jpg" alt="Momento 9">
         </div>
 
       </div>
+
+      <button class="nav-btn nav-next" onclick="nextSlide()">&#10095;</button>
+
     </div>
     <p class="subtitle">
       Estamos montando nosso cantinho! Selecione um item abaixo para nos presentear.
@@ -209,20 +241,47 @@
 </main>
 
 <script>
-  // --- LÓGICA DO CARROSSEL ---
+  // --- LÓGICA DO CARROSSEL MANUAL E AUTOMÁTICO ---
   const track = document.getElementById('track');
   const slides = document.querySelectorAll('.carousel-slide');
   let index = 0;
+  let autoPlayInterval;
+
+  function updateTrack() {
+    track.style.transform = `translateX(-${index * 100}%)`;
+  }
 
   function nextSlide() {
     index++;
     if(index >= slides.length) index = 0;
-    // Move o trilho para a esquerda
-    track.style.transform = `translateX(-${index * 100}%)`;
+    updateTrack();
+    resetTimer(); // Reinicia o timer se o usuário clicou
   }
-  // Muda de foto a cada 3.5 segundos
-  setInterval(nextSlide, 3500);
 
+  function prevSlide() {
+    index--;
+    if(index < 0) index = slides.length - 1;
+    updateTrack();
+    resetTimer(); // Reinicia o timer se o usuário clicou
+  }
+
+  // Função para rodar o automático
+  function startTimer() {
+    autoPlayInterval = setInterval(() => {
+      index++;
+      if(index >= slides.length) index = 0;
+      updateTrack();
+    }, 3500);
+  }
+
+  // Função para limpar e reiniciar o timer (para não pular foto na cara do usuário)
+  function resetTimer() {
+    clearInterval(autoPlayInterval);
+    startTimer();
+  }
+
+  // Inicia o carrossel
+  startTimer();
 
   // --- LÓGICA DA LISTA (Google Sheets) ---
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyIhUdiPCGg-j3Jg2qZeh6B4hJHmujyrohinPi4MGapfiwWaGD2rcqm1WUaY9xnq1b2/exec";
