@@ -5,51 +5,268 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Chá de Casa Nova - Jennifer e Gabriel - Sugestões de Presente</title>
   <style>
-    :root{
-      --bg:#0f1115; --card:#171a21; --text:#e9eef7; --muted:#aeb8c7;
-      --line:#2a2f3a; --chip:#232837; --accent:#7aa2ff;
+    :root {
+      /* Paleta de Cores Atualizada */
+      --bg: #121418;           /* Fundo da página levemente mais escuro */
+      --card-bg: #1e2229;      /* Fundo do cartão */
+      --text: #edf2f7;         /* Texto principal */
+      --muted: #a0aec0;        /* Texto secundário */
+      --border: #2d3748;       /* Bordas sutis */
+      --accent: #63b3ed;       /* Azul claro para destaques */
+      --accent-hover: #4299e1; /* Azul mais escuro para hover */
+      --success: #48bb78;      /* Verde para sucesso/check */
+      --btn-bg: #2d3748;       /* Fundo de botões secundários */
     }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
-    main{max-width:980px;margin:0 auto;padding:18px}
-    h1{margin:10px 0 4px; font-size: 1.5rem;} /* Ajustei levemente o tamanho para caber melhor no mobile */
-    .muted{color:var(--muted);margin:0 0 16px;line-height:1.4}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:0 10px 24px rgba(0,0,0,.25)}
-    .title{font-weight:800;margin:0 0 8px;line-height:1.25}
-    .meta{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}
-    .chip{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--chip);border:1px solid var(--line);color:var(--muted);font-size:12px}
-    a{color:var(--accent);text-decoration:none;word-break:break-word}
-    a:hover{text-decoration:underline}
-    .row{display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap}
-    .btn{padding:8px 10px;border-radius:10px;border:1px solid rgba(122,162,255,.35);background:rgba(122,162,255,.14);color:var(--accent);cursor:pointer}
-    .btn:disabled{opacity:.6;cursor:not-allowed}
-    input[type="text"]{padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:#0d1016;color:var(--text);flex:1;min-width:220px}
-    .check{display:flex;align-items:center;gap:10px;color:var(--muted)}
-    .small{font-size:12px;color:var(--muted);margin-top:10px}
-    .links{margin-top:10px;display:flex;flex-direction:column;gap:6px}
-    .hr{height:1px;background:var(--line);margin-top:10px}
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+
+    /* Cabeçalho */
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 1.75rem;
+      background: linear-gradient(90deg, #63b3ed, #9f7aea); /* Gradiente sutil no texto */
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Controles (Nome e Recarregar) */
+    .controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      background: var(--card-bg);
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    input[type="text"] {
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      flex: 1;
+      min-width: 200px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* Grid de Cartões */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    /* O Cartão */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+      border-color: var(--accent);
+    }
+
+    .card-content {
+      padding: 20px;
+      flex: 1; /* Empurra o rodapé para baixo */
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0 0 12px;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(99, 179, 237, 0.15);
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      border: 1px solid rgba(99, 179, 237, 0.2);
+    }
+
+    /* Botões de Link (Shopee, etc) */
+    .link-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .link-btn {
+      display: block;
+      padding: 10px 14px;
+      background: var(--btn-bg);
+      color: var(--text);
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      text-align: center;
+      transition: background 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .link-btn:hover {
+      background: #3e4c63;
+      text-decoration: none;
+    }
+
+    .link-btn span {
+      opacity: 0.8;
+      font-size: 0.8em;
+      margin-left: 6px;
+    }
+
+    /* Área de Ação (Rodapé do Card) */
+    .card-actions {
+      background: rgba(0,0,0,0.2);
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .check-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      color: var(--muted);
+      user-select: none;
+    }
+
+    .check-label input {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--success);
+    }
+
+    .check-label input:checked + span {
+      color: var(--success);
+      font-weight: bold;
+    }
+
+    .btn-save {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--accent);
+      color: #1a202c;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-save:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-save:active {
+      transform: scale(0.98);
+    }
+
+    .btn-save:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      filter: grayscale(1);
+    }
+
+    .who-info {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+      min-height: 1.2em;
+    }
+
+    /* Status de carregamento */
+    #status {
+      text-align: center;
+      height: 24px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    /* Utilitário */
+    .hidden { display: none; }
   </style>
 </head>
 <body>
 <main>
-  <h1>Chá de Casa Nova - Jennifer e Gabriel - Sugestões de Presente</h1>
-  <p class="muted">
-    Checklist online salvando no Google Sheets. Qualquer pessoa com o link pode marcar.
-    <br><span class="small">Dica: se quiser colocar seu nome, ele aparece no item ao salvar (opcional).</span>
-  </p>
+  <header>
+    <h1>Chá de Casa Nova<br>Jennifer & Gabriel</h1>
+    <p class="subtitle">
+      Selecione um item abaixo para nos presentear. A lista é atualizada automaticamente no Google Sheets.
+      <br><small style="opacity: 0.7">(Dica: coloque seu nome antes de marcar)</small>
+    </p>
+  </header>
 
-  <div class="row">
-    <input id="who" type="text" placeholder="Seu nome (opcional)" />
-    <button id="reload" class="btn">Recarregar</button>
+  <div class="controls">
+    <input id="who" type="text" placeholder="Seu nome (Opcional)" />
+    <button id="reload" class="btn-save" style="width: auto; padding: 0 20px; background: var(--btn-bg); color: #fff;">🔄 Atualizar Lista</button>
   </div>
 
-  <p id="status" class="small"></p>
+  <p id="status"></p>
   <section id="grid" class="grid"></section>
 </main>
 
 <script>
-  // O link do seu script permanece o mesmo
+  // URL DO SEU SCRIPT (MANTIDA)
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyIhUdiPCGg-j3Jg2qZeh6B4hJHmujyrohinPi4MGapfiwWaGD2rcqm1WUaY9xnq1b2/exec";
 
   const grid = document.getElementById("grid");
@@ -60,7 +277,7 @@
   function setStatus(msg){ statusEl.textContent = msg || ""; }
 
   async function load(){
-    setStatus("Carregando...");
+    setStatus("Carregando lista de presentes...");
     grid.innerHTML = "";
     try{
       const r = await fetch(WEB_APP_URL, { cache: "no-store" });
@@ -69,108 +286,149 @@
       render(j.items || []);
       setStatus("");
     }catch(e){
-      setStatus("Erro: " + e.message);
+      setStatus("Erro de conexão: " + e.message);
     }
   }
 
   function formatQuem(item){
     if(item.status !== "ok") return "";
     const who = (item.quem || "").trim();
-    if(!who) return "Marcado ✅";
-    return "Marcado por: " + who + " ✅";
+    if(!who) return "Item já reservado! ✅";
+    return "Reservado por: " + who + " ✅";
   }
 
-  function makeLinkBlock(link, label){
+  // Gera botão visualmente agradável para o link
+  function makeLinkBtn(link, label, isSecondary){
     if(!link) return "";
-    const text = label ? (label + " — " + link) : link;
-    return `<div><a href="${link}" target="_blank" rel="noopener">${text}</a></div>`;
+    const text = label || "Ver na Loja";
+    // Ícone simples baseado no contexto (só visual)
+    const icon = isSecondary ? "🔗" : "🎁"; 
+    return `<a href="${link}" class="link-btn" target="_blank" rel="noopener">${icon} ${text} <span>↗</span></a>`;
   }
 
   function render(items){
     items.forEach(item => {
       const card = document.createElement("article");
       card.className = "card";
-
-      const title = document.createElement("h2");
-      title.className = "title";
-      title.textContent = item.titulo || ("Item " + item.id);
-
-      const meta = document.createElement("div");
-      meta.className = "meta";
-      if(item.cor){
-        const chip = document.createElement("span");
-        chip.className = "chip";
-        chip.textContent = "Preferência/Cor: " + item.cor;
-        meta.appendChild(chip);
+      
+      // Se já estiver marcado, opcionalmente deixamos o card mais opaco
+      if(item.status === 'ok') {
+        card.style.opacity = "0.75";
+        card.style.borderColor = "var(--success)";
       }
 
-      const links = document.createElement("div");
-      links.className = "links";
-      links.innerHTML =
-        makeLinkBlock(item.link1, item.link2 ? "Opção 1" : "") +
-        makeLinkBlock(item.link2, "Opção 2");
+      // --- CONTEÚDO SUPERIOR ---
+      const content = document.createElement("div");
+      content.className = "card-content";
 
-      const checkRow = document.createElement("div");
-      checkRow.className = "row";
+      const title = document.createElement("h2");
+      title.className = "card-title";
+      title.textContent = item.titulo || ("Item " + item.id);
 
+      content.appendChild(title);
+
+      if(item.cor){
+        const badge = document.createElement("div");
+        badge.className = "badge";
+        badge.textContent = "🎨 Preferência: " + item.cor;
+        content.appendChild(badge);
+      }
+
+      const linkGroup = document.createElement("div");
+      linkGroup.className = "link-group";
+      // Adiciona os links como botões
+      linkGroup.innerHTML = 
+        makeLinkBtn(item.link1, item.link2 ? "Opção 1" : "Ver Opção de Compra") +
+        makeLinkBtn(item.link2, "Opção 2", true);
+      
+      content.appendChild(linkGroup);
+
+      // --- ÁREA DE AÇÃO INFERIOR ---
+      const actions = document.createElement("div");
+      actions.className = "card-actions";
+
+      const label = document.createElement("label");
+      label.className = "check-label";
+      
       const cb = document.createElement("input");
       cb.type = "checkbox";
       cb.checked = (item.status === "ok");
+      
+      // Texto do checkbox muda dinamicamente
+      const spanText = document.createElement("span");
+      spanText.textContent = cb.checked ? "Já comprei este item!" : "Marcar como comprado";
+      
+      // Evento para mudar texto visualmente na hora
+      cb.addEventListener('change', () => {
+        spanText.textContent = cb.checked ? "Já comprei este item!" : "Marcar como comprado";
+        if(cb.checked) spanText.style.color = "var(--success)";
+        else spanText.style.color = "var(--muted)";
+      });
 
-      const label = document.createElement("label");
-      label.className = "check";
       label.appendChild(cb);
-      label.appendChild(document.createTextNode(" Marcar como “já peguei”"));
+      label.appendChild(spanText);
 
       const saveBtn = document.createElement("button");
-      saveBtn.className = "btn";
-      saveBtn.textContent = "Salvar";
+      saveBtn.className = "btn-save";
+      saveBtn.textContent = "Confirmar / Salvar";
 
-      const whoLine = document.createElement("div");
-      whoLine.className = "small";
-      whoLine.textContent = formatQuem(item);
+      const whoInfo = document.createElement("div");
+      whoInfo.className = "who-info";
+      whoInfo.textContent = formatQuem(item);
 
+      // Lógica de Salvar
       saveBtn.onclick = async () => {
         saveBtn.disabled = true;
-        setStatus("Salvando item " + item.id + "...");
+        saveBtn.textContent = "Salvando...";
+        
         try{
           const payload = {
             id: String(item.id),
             status: cb.checked ? "ok" : "",
             quem: (whoEl.value || "").trim()
           };
+          
           const r = await fetch(WEB_APP_URL, {
             method: "POST",
             body: JSON.stringify(payload)
-            });
+          });
 
           const j = await r.json();
-          if(!j.ok) throw new Error(j.error || "Falha ao salvar");
+          if(!j.ok) throw new Error(j.error || "Erro no servidor");
 
+          // Atualiza dados locais
           item.status = payload.status;
           item.quem = payload.quem;
-          whoLine.textContent = formatQuem(item);
+          
+          whoInfo.textContent = formatQuem(item);
+          
+          // Feedback visual
+          saveBtn.textContent = "Sucesso! ✅";
+          saveBtn.style.background = "var(--success)";
+          
+          // Atualiza visual do card (borda verde se marcado)
+          if(item.status === 'ok') card.style.borderColor = "var(--success)";
+          else card.style.borderColor = "var(--border)";
 
-          setStatus("Salvo ✅");
-          setTimeout(()=>setStatus(""), 900);
+          setTimeout(() => {
+            saveBtn.textContent = "Confirmar / Salvar";
+            saveBtn.style.background = ""; 
+            saveBtn.disabled = false;
+          }, 2000);
+
         }catch(e){
-          setStatus("Erro ao salvar: " + e.message);
-        }finally{
+          alert("Erro ao salvar: " + e.message);
+          saveBtn.textContent = "Tentar Novamente";
           saveBtn.disabled = false;
         }
       };
 
-      checkRow.appendChild(label);
-      checkRow.appendChild(saveBtn);
+      actions.appendChild(label);
+      actions.appendChild(saveBtn);
+      actions.appendChild(whoInfo);
 
-      card.appendChild(title);
-      if(meta.childNodes.length) card.appendChild(meta);
-      if((item.link1 || item.link2)) card.appendChild(links);
-
-      card.appendChild(document.createElement("div")).className = "hr";
-      card.appendChild(checkRow);
-      card.appendChild(whoLine);
-
+      card.appendChild(content);
+      card.appendChild(actions);
       grid.appendChild(card);
     });
   }
