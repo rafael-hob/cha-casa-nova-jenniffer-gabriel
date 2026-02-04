@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Chá de Casa Nova — Lista Online (Jenniffer & Gabriel)</title>
+  <title>Chá de Casa Nova - Jennifer e Gabriel - Sugestões de Presente</title>
   <style>
     :root{
       --bg:#0f1115; --card:#171a21; --text:#e9eef7; --muted:#aeb8c7;
@@ -12,7 +12,7 @@
     *{box-sizing:border-box}
     body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
     main{max-width:980px;margin:0 auto;padding:18px}
-    h1{margin:10px 0 4px}
+    h1{margin:10px 0 4px; font-size: 1.5rem;} /* Ajustei levemente o tamanho para caber melhor no mobile */
     .muted{color:var(--muted);margin:0 0 16px;line-height:1.4}
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
     .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:0 10px 24px rgba(0,0,0,.25)}
@@ -33,7 +33,7 @@
 </head>
 <body>
 <main>
-  <h1>Chá de Casa Nova — Sugestões de Presente</h1>
+  <h1>Chá de Casa Nova - Jennifer e Gabriel - Sugestões de Presente</h1>
   <p class="muted">
     Checklist online salvando no Google Sheets. Qualquer pessoa com o link pode marcar.
     <br><span class="small">Dica: se quiser colocar seu nome, ele aparece no item ao salvar (opcional).</span>
@@ -49,6 +49,7 @@
 </main>
 
 <script>
+  // O link do seu script permanece o mesmo
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyIhUdiPCGg-j3Jg2qZeh6B4hJHmujyrohinPi4MGapfiwWaGD2rcqm1WUaY9xnq1b2/exec";
 
   const grid = document.getElementById("grid");
@@ -140,13 +141,12 @@
           };
           const r = await fetch(WEB_APP_URL, {
             method: "POST",
-            body: JSON.stringify(payload) // sem headers pra evitar preflight
+            body: JSON.stringify(payload)
             });
 
           const j = await r.json();
           if(!j.ok) throw new Error(j.error || "Falha ao salvar");
 
-          // Atualiza visual localmente
           item.status = payload.status;
           item.quem = payload.quem;
           whoLine.textContent = formatQuem(item);
@@ -179,4 +179,3 @@
 </script>
 </body>
 </html>
-
