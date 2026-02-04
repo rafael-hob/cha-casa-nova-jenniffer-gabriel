@@ -3,72 +3,124 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Chá de Casa Nova - Jennifer e Gabriel - Sugestões de Presente</title>
+  <title>Chá de Casa Nova - Jennifer e Gabriel</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      /* Paleta de Cores Atualizada */
-      --bg: #121418;           /* Fundo da página levemente mais escuro */
-      --card-bg: #1e2229;      /* Fundo do cartão */
-      --text: #edf2f7;         /* Texto principal */
-      --muted: #a0aec0;        /* Texto secundário */
-      --border: #2d3748;       /* Bordas sutis */
-      --accent: #63b3ed;       /* Azul claro para destaques */
-      --accent-hover: #4299e1; /* Azul mais escuro para hover */
-      --success: #48bb78;      /* Verde para sucesso/check */
-      --btn-bg: #2d3748;       /* Fundo de botões secundários */
+      --bg: #0f1115;
+      --card-bg: #1e2229;
+      --text: #edf2f7;
+      --muted: #a0aec0;
+      --border: #2d3748;
+      --accent: #63b3ed;
+      --accent-hover: #4299e1;
+      --success: #48bb78;
+      --btn-bg: #2d3748;
     }
 
     * { box-sizing: border-box; }
 
-body {
+    body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Montserrat', sans-serif; /* Fonte mais moderna pro corpo */
       color: var(--text);
       line-height: 1.6;
 
-      /* Configuração do Fundo */
+      /* SEU FUNDO AURORA */
       background-color: var(--bg);
       background-image: 
         radial-gradient(circle at 50% 0%, rgba(99, 179, 237, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 100% 0%, rgba(159, 122, 234, 0.1) 0%, transparent 40%);
-      background-attachment: fixed; /* O fundo não rola junto com a tela */
+      background-attachment: fixed;
     }
 
     main {
-      max-width: 1000px;
+      max-width: 800px; /* Reduzi um pouco pra ficar mais 'intimista' */
       margin: 0 auto;
       padding: 24px 16px;
     }
 
-    /* Cabeçalho */
+    /* --- ESTILO DO TÍTULO --- */
     header {
       text-align: center;
       margin-bottom: 32px;
+      padding-top: 10px;
+    }
+
+    .event-type {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 0.9rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 5px;
     }
 
     h1 {
-      margin: 0 0 12px;
-      font-size: 1.75rem;
-      background: linear-gradient(90deg, #63b3ed, #9f7aea); /* Gradiente sutil no texto */
+      margin: 0;
+      font-family: 'Great Vibes', cursive; /* Fonte manuscrita */
+      font-size: 3.5rem; /* Tamanho grande pros nomes */
+      font-weight: 400;
+      background: linear-gradient(to right, #fff, #a5b4fc);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
     .subtitle {
       color: var(--muted);
       font-size: 0.95rem;
+      margin-top: 16px;
       max-width: 600px;
-      margin: 0 auto;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    /* Controles (Nome e Recarregar) */
+    /* --- CARROSSEL DE FOTOS --- */
+    .carousel-container {
+      width: 100%;
+      max-width: 500px; /* Largura máxima da foto */
+      aspect-ratio: 4/3; /* Formato da foto (retangular) */
+      margin: 0 auto 30px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .carousel-track {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s ease-in-out;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      height: 100%;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Faz a imagem preencher tudo sem esticar */
+    }
+
+    /* --- RESTO DO DESIGN (IGUAL AO ANTERIOR) --- */
     .controls {
       display: flex;
       gap: 12px;
       justify-content: center;
       flex-wrap: wrap;
       margin-bottom: 24px;
-      background: var(--card-bg);
+      background: rgba(30, 34, 41, 0.6); /* Mais translúcido */
+      backdrop-filter: blur(10px); /* Efeito de vidro */
       padding: 16px;
       border-radius: 12px;
       border: 1px solid var(--border);
@@ -78,27 +130,16 @@ body {
       padding: 10px 14px;
       border-radius: 8px;
       border: 1px solid var(--border);
-      background: var(--bg);
+      background: rgba(0,0,0,0.3);
       color: var(--text);
       flex: 1;
       min-width: 200px;
       font-size: 1rem;
-      transition: border-color 0.2s;
     }
+    input[type="text"]:focus { outline: none; border-color: var(--accent); }
 
-    input[type="text"]:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
 
-    /* Grid de Cartões */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-    }
-
-    /* O Cartão */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -106,165 +147,61 @@ body {
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.3); border-color: var(--accent); }
+    .card-content { padding: 20px; flex: 1; }
+    .card-title { font-size: 1.25rem; font-weight: 700; margin: 0 0 12px; color: #fff; }
+    .badge { display: inline-flex; padding: 4px 10px; border-radius: 6px; background: rgba(99, 179, 237, 0.15); color: var(--accent); font-size: 0.85rem; font-weight: 600; margin-bottom: 16px; border: 1px solid rgba(99, 179, 237, 0.2); }
+    
+    .link-group { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+    .link-btn { display: block; padding: 10px 14px; background: var(--btn-bg); color: var(--text); text-decoration: none; border-radius: 8px; font-size: 0.9rem; text-align: center; border: 1px solid transparent; transition: 0.2s;}
+    .link-btn:hover { background: #3e4c63; }
+    .link-btn span { opacity: 0.8; font-size: 0.8em; margin-left: 6px; }
 
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.3);
-      border-color: var(--accent);
-    }
-
-    .card-content {
-      padding: 20px;
-      flex: 1; /* Empurra o rodapé para baixo */
-    }
-
-    .card-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin: 0 0 12px;
-      color: #fff;
-      line-height: 1.3;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 4px 10px;
-      border-radius: 6px;
-      background: rgba(99, 179, 237, 0.15);
-      color: var(--accent);
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 16px;
-      border: 1px solid rgba(99, 179, 237, 0.2);
-    }
-
-    /* Botões de Link (Shopee, etc) */
-    .link-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .link-btn {
-      display: block;
-      padding: 10px 14px;
-      background: var(--btn-bg);
-      color: var(--text);
-      text-decoration: none;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      text-align: center;
-      transition: background 0.2s;
-      border: 1px solid transparent;
-    }
-
-    .link-btn:hover {
-      background: #3e4c63;
-      text-decoration: none;
-    }
-
-    .link-btn span {
-      opacity: 0.8;
-      font-size: 0.8em;
-      margin-left: 6px;
-    }
-
-    /* Área de Ação (Rodapé do Card) */
-    .card-actions {
-      background: rgba(0,0,0,0.2);
-      padding: 16px 20px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .check-label {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      font-weight: 500;
-      color: var(--muted);
-      user-select: none;
-    }
-
-    .check-label input {
-      width: 18px;
-      height: 18px;
-      cursor: pointer;
-      accent-color: var(--success);
-    }
-
-    .check-label input:checked + span {
-      color: var(--success);
-      font-weight: bold;
-    }
-
-    .btn-save {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      font-weight: 700;
-      cursor: pointer;
-      background: var(--accent);
-      color: #1a202c;
-      transition: background 0.2s, transform 0.1s;
-    }
-
-    .btn-save:hover {
-      background: var(--accent-hover);
-    }
-
-    .btn-save:active {
-      transform: scale(0.98);
-    }
-
-    .btn-save:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      filter: grayscale(1);
-    }
-
-    .who-info {
-      font-size: 0.8rem;
-      color: var(--muted);
-      text-align: center;
-      min-height: 1.2em;
-    }
-
-    /* Status de carregamento */
-    #status {
-      text-align: center;
-      height: 24px;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    /* Utilitário */
-    .hidden { display: none; }
+    .card-actions { background: rgba(0,0,0,0.2); padding: 16px 20px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px; }
+    .check-label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 500; color: var(--muted); user-select: none; }
+    .check-label input { width: 18px; height: 18px; accent-color: var(--success); }
+    .btn-save { width: 100%; padding: 10px; border-radius: 8px; border: none; font-weight: 700; cursor: pointer; background: var(--accent); color: #1a202c; transition: 0.2s; }
+    .btn-save:hover { background: var(--accent-hover); }
+    .btn-save:disabled { opacity: 0.6; cursor: not-allowed; }
+    .who-info { font-size: 0.8rem; color: var(--muted); text-align: center; min-height: 1.2em; }
+    #status { text-align: center; height: 24px; color: var(--accent); font-weight: 600; margin-bottom: 10px; }
   </style>
 </head>
 <body>
 <main>
+  
   <header>
-    <h1>Chá de Casa Nova<br>Jennifer & Gabriel</h1>
+    <div class="event-type">Chá de Casa Nova</div>
+    <h1>Jennifer & Gabriel</h1>
+    
+    <div class="carousel-container">
+      <div class="carousel-track" id="track">
+        
+        <div class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1517260739337-6799d239ce83?q=80&w=800&auto=format&fit=crop" alt="Foto 1">
+        </div>
+        
+        <div class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=800&auto=format&fit=crop" alt="Foto 2">
+        </div>
+
+        <div class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?q=80&w=800&auto=format&fit=crop" alt="Foto 3">
+        </div>
+
+      </div>
+    </div>
     <p class="subtitle">
-      Selecione um item abaixo para nos presentear. A lista é atualizada automaticamente no Google Sheets.
-      <br><small style="opacity: 0.7">(Dica: coloque seu nome antes de marcar)</small>
+      Estamos montando nosso cantinho! Selecione um item abaixo para nos presentear.
+      <br><small style="opacity: 0.7">(Sua marcação é salva automaticamente na nossa lista)</small>
     </p>
   </header>
 
   <div class="controls">
     <input id="who" type="text" placeholder="Seu nome (Opcional)" />
-    <button id="reload" class="btn-save" style="width: auto; padding: 0 20px; background: var(--btn-bg); color: #fff;">🔄 Atualizar Lista</button>
+    <button id="reload" class="btn-save" style="width: auto; padding: 0 20px; background: var(--btn-bg); color: #fff;">🔄 Atualizar</button>
   </div>
 
   <p id="status"></p>
@@ -272,7 +209,22 @@ body {
 </main>
 
 <script>
-  // URL DO SEU SCRIPT (MANTIDA)
+  // --- LÓGICA DO CARROSSEL ---
+  const track = document.getElementById('track');
+  const slides = document.querySelectorAll('.carousel-slide');
+  let index = 0;
+
+  function nextSlide() {
+    index++;
+    if(index >= slides.length) index = 0;
+    // Move o trilho para a esquerda
+    track.style.transform = `translateX(-${index * 100}%)`;
+  }
+  // Muda de foto a cada 3.5 segundos
+  setInterval(nextSlide, 3500);
+
+
+  // --- LÓGICA DA LISTA (Google Sheets) ---
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyIhUdiPCGg-j3Jg2qZeh6B4hJHmujyrohinPi4MGapfiwWaGD2rcqm1WUaY9xnq1b2/exec";
 
   const grid = document.getElementById("grid");
@@ -283,7 +235,7 @@ body {
   function setStatus(msg){ statusEl.textContent = msg || ""; }
 
   async function load(){
-    setStatus("Carregando lista de presentes...");
+    setStatus("Buscando presentes...");
     grid.innerHTML = "";
     try{
       const r = await fetch(WEB_APP_URL, { cache: "no-store" });
@@ -292,7 +244,7 @@ body {
       render(j.items || []);
       setStatus("");
     }catch(e){
-      setStatus("Erro de conexão: " + e.message);
+      setStatus("Ops: " + e.message);
     }
   }
 
@@ -303,11 +255,9 @@ body {
     return "Reservado por: " + who + " ✅";
   }
 
-  // Gera botão visualmente agradável para o link
   function makeLinkBtn(link, label, isSecondary){
     if(!link) return "";
     const text = label || "Ver na Loja";
-    // Ícone simples baseado no contexto (só visual)
     const icon = isSecondary ? "🔗" : "🎁"; 
     return `<a href="${link}" class="link-btn" target="_blank" rel="noopener">${icon} ${text} <span>↗</span></a>`;
   }
@@ -317,20 +267,17 @@ body {
       const card = document.createElement("article");
       card.className = "card";
       
-      // Se já estiver marcado, opcionalmente deixamos o card mais opaco
       if(item.status === 'ok') {
         card.style.opacity = "0.75";
         card.style.borderColor = "var(--success)";
       }
 
-      // --- CONTEÚDO SUPERIOR ---
       const content = document.createElement("div");
       content.className = "card-content";
 
       const title = document.createElement("h2");
       title.className = "card-title";
       title.textContent = item.titulo || ("Item " + item.id);
-
       content.appendChild(title);
 
       if(item.cor){
@@ -342,29 +289,21 @@ body {
 
       const linkGroup = document.createElement("div");
       linkGroup.className = "link-group";
-      // Adiciona os links como botões
       linkGroup.innerHTML = 
         makeLinkBtn(item.link1, item.link2 ? "Opção 1" : "Ver Opção de Compra") +
         makeLinkBtn(item.link2, "Opção 2", true);
-      
       content.appendChild(linkGroup);
 
-      // --- ÁREA DE AÇÃO INFERIOR ---
       const actions = document.createElement("div");
       actions.className = "card-actions";
-
       const label = document.createElement("label");
       label.className = "check-label";
-      
       const cb = document.createElement("input");
       cb.type = "checkbox";
       cb.checked = (item.status === "ok");
-      
-      // Texto do checkbox muda dinamicamente
       const spanText = document.createElement("span");
       spanText.textContent = cb.checked ? "Já comprei este item!" : "Marcar como comprado";
       
-      // Evento para mudar texto visualmente na hora
       cb.addEventListener('change', () => {
         spanText.textContent = cb.checked ? "Já comprei este item!" : "Marcar como comprado";
         if(cb.checked) spanText.style.color = "var(--success)";
@@ -373,57 +312,39 @@ body {
 
       label.appendChild(cb);
       label.appendChild(spanText);
-
       const saveBtn = document.createElement("button");
       saveBtn.className = "btn-save";
       saveBtn.textContent = "Confirmar / Salvar";
-
       const whoInfo = document.createElement("div");
       whoInfo.className = "who-info";
       whoInfo.textContent = formatQuem(item);
 
-      // Lógica de Salvar
       saveBtn.onclick = async () => {
         saveBtn.disabled = true;
         saveBtn.textContent = "Salvando...";
-        
         try{
           const payload = {
             id: String(item.id),
             status: cb.checked ? "ok" : "",
             quem: (whoEl.value || "").trim()
           };
-          
-          const r = await fetch(WEB_APP_URL, {
-            method: "POST",
-            body: JSON.stringify(payload)
-          });
-
+          const r = await fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify(payload) });
           const j = await r.json();
           if(!j.ok) throw new Error(j.error || "Erro no servidor");
-
-          // Atualiza dados locais
           item.status = payload.status;
           item.quem = payload.quem;
-          
           whoInfo.textContent = formatQuem(item);
-          
-          // Feedback visual
           saveBtn.textContent = "Sucesso! ✅";
           saveBtn.style.background = "var(--success)";
-          
-          // Atualiza visual do card (borda verde se marcado)
           if(item.status === 'ok') card.style.borderColor = "var(--success)";
           else card.style.borderColor = "var(--border)";
-
           setTimeout(() => {
             saveBtn.textContent = "Confirmar / Salvar";
             saveBtn.style.background = ""; 
             saveBtn.disabled = false;
           }, 2000);
-
         }catch(e){
-          alert("Erro ao salvar: " + e.message);
+          alert("Erro: " + e.message);
           saveBtn.textContent = "Tentar Novamente";
           saveBtn.disabled = false;
         }
@@ -432,7 +353,6 @@ body {
       actions.appendChild(label);
       actions.appendChild(saveBtn);
       actions.appendChild(whoInfo);
-
       card.appendChild(content);
       card.appendChild(actions);
       grid.appendChild(card);
@@ -443,6 +363,3 @@ body {
 </script>
 </body>
 </html>
-
-
-
